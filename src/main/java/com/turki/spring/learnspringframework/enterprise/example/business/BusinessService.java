@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.turki.spring.learnspringframework.enterprise.example.data.DataService;
 
 @Component
-
 public class BusinessService{
 
 	private DataService dataService;
