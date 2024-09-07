@@ -5,6 +5,8 @@ public class Course {
     private long id;
     private String name;
     private String author;
+    // /courses
+
 
     public Course(long id, String name, String author) {
         this.id = id;
