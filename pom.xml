@@ -90,7 +90,7 @@
 				</executions>
 				<configuration>
 					<sources>
-						<source>${project.basedir}/src/main/resources/course-details.xsd</source>
+						<source>${project.basedir}/src/main/resources/student-details.xsd</source>
 					</sources>
 					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>
 					<clearOutputDir>false</clearOutputDir>

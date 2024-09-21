@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GetCourseDetailsRequest xmlns="http://mySchool/courses" xsi:schemaLocation="http://mySchool/courses ../src/main/resources/course-details.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <id>123</id>
-</GetCourseDetailsRequest>
+<GetStudentDetailsRequest xmlns="http://mySchool/students"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://mySchool/students ../src/main/resources/student-details.xsd">
+    <id>1</id>
+</GetStudentDetailsRequest>
