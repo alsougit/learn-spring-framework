@@ -1,0 +1,41 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mySchool/courses"
+xmlns:tns="http://mySchool/courses"
+    elementFormDefault="qualified">
+    <xs:element name="GetCourseDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetCourseDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CourseDetails" type="tns:CourseDetails"
+                    xmlns="http://mySchool/courses" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!-- 
+        The idea of seperating this parent elemnt as complex element is to be used in different parent
+    elements for instance GetAllCourseDetailsResponse if in future used, always recomended to handle
+    complex
+    elements out of parent elements if would be used in different parents
+     -->
+    <xs:complexType name="CourseDetails">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int" />
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="description" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+
+
+<!-- 
+You can add different xml files in different parent elements in same xsd file. 
+must important you give the element name which is the tag name in the xml file.
+you can link both xml files with the same xsd file
+-->
