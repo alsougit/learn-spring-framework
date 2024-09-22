@@ -11,8 +11,6 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import com.turki.spring.learnspringframework.Model.Course;
 import com.turki.spring.learnspringframework.Service.CourseDetailsService;
 import com.turki.spring.learnspringframework.Service.CourseDetailsService.StatusEnum;
-import com.turki.spring.learnspringframework.exception.CourseNotFoundException;
-
 import myschool.courses.CourseDetails;
 import myschool.courses.DeleteCourseDetailsRequest;
 import myschool.courses.DeleteCourseDetailsResponse;
