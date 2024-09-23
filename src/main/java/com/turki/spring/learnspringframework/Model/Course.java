@@ -2,44 +2,48 @@ package com.turki.spring.learnspringframework.Model;
 
 public class Course {
 
-    private int id;
+    private long id;
     private String name;
-    private String description;
-    // /courses
+    private String Author;
 
-    public Course(int id, String name, String description) {
+    public Course(){
+        
+    }
+
+    public Course(long id, String name, String Author){
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.Author = Author;
     }
 
-    @Override
-    public String toString() {
-        return "Course [id=" + id + ", name=" + name + ", description=" + description + "]";
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDescription(String author) {
-        this.description = author;
+    public String getAuthor() {
+        return Author;
     }
 
+    public void setAuthor(String author) {
+        Author = author;
+    }
+
+    @Override
+    public String toString() {
+        return "Course [id=" + id + ", name=" + name + ", Author=" + Author + "]";
+    }
+
+    
 }
