@@ -25,7 +25,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="StudentDetails" type="{http://mySchool/students}StudentDetails"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="StudentDetails" type="{http://mySchool/students}StudentDetails" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,13 +37,31 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "id",
     "studentDetails"
 })
-@XmlRootElement(name = "GetStudentDetailsResponse")
-public class GetStudentDetailsResponse {
+@XmlRootElement(name = "UpdateStudentDetailsRequest")
+public class UpdateStudentDetailsRequest {
 
-    @XmlElement(name = "StudentDetails", required = true)
+    protected int id;
+    @XmlElement(name = "StudentDetails")
     protected StudentDetails studentDetails;
+
+    /**
+     * Gets the value of the id property.
+     * 
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     */
+    public void setId(int value) {
+        this.id = value;
+    }
 
     /**
      * Gets the value of the studentDetails property.

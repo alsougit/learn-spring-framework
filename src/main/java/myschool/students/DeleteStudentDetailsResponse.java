@@ -12,6 +12,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -25,7 +26,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="StudentDetails" type="{http://mySchool/students}StudentDetails"/&gt;
+ *         &lt;element name="status" type="{http://mySchool/students}status"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +37,37 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "studentDetails"
+    "status"
 })
-@XmlRootElement(name = "GetStudentDetailsResponse")
-public class GetStudentDetailsResponse {
+@XmlRootElement(name = "DeleteStudentDetailsResponse")
+public class DeleteStudentDetailsResponse {
 
-    @XmlElement(name = "StudentDetails", required = true)
-    protected StudentDetails studentDetails;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "string")
+    protected Status status;
 
     /**
-     * Gets the value of the studentDetails property.
+     * Gets the value of the status property.
      * 
      * @return
      *     possible object is
-     *     {@link StudentDetails }
+     *     {@link Status }
      *     
      */
-    public StudentDetails getStudentDetails() {
-        return studentDetails;
+    public Status getStatus() {
+        return status;
     }
 
     /**
-     * Sets the value of the studentDetails property.
+     * Sets the value of the status property.
      * 
      * @param value
      *     allowed object is
-     *     {@link StudentDetails }
+     *     {@link Status }
      *     
      */
-    public void setStudentDetails(StudentDetails value) {
-        this.studentDetails = value;
+    public void setStatus(Status value) {
+        this.status = value;
     }
 
 }

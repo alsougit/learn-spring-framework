@@ -12,6 +12,7 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
 
 
@@ -25,7 +26,8 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="StudentDetails" type="{http://mySchool/students}StudentDetails"/&gt;
+ *         &lt;element name="status" type="{http://mySchool/students}status"/&gt;
+ *         &lt;element name="StudentDetails" type="{http://mySchool/students}StudentDetails" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,13 +38,41 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "status",
     "studentDetails"
 })
-@XmlRootElement(name = "GetStudentDetailsResponse")
-public class GetStudentDetailsResponse {
+@XmlRootElement(name = "UpdateStudentDetailsResponse")
+public class UpdateStudentDetailsResponse {
 
-    @XmlElement(name = "StudentDetails", required = true)
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "string")
+    protected Status status;
+    @XmlElement(name = "StudentDetails")
     protected StudentDetails studentDetails;
+
+    /**
+     * Gets the value of the status property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Status }
+     *     
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Status }
+     *     
+     */
+    public void setStatus(Status value) {
+        this.status = value;
+    }
 
     /**
      * Gets the value of the studentDetails property.

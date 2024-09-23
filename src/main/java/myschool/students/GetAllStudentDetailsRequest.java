@@ -10,7 +10,6 @@ package myschool.students;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -25,7 +24,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="StudentDetails" type="{http://mySchool/students}StudentDetails"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +35,27 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "studentDetails"
+    "id"
 })
-@XmlRootElement(name = "GetStudentDetailsResponse")
-public class GetStudentDetailsResponse {
+@XmlRootElement(name = "GetAllStudentDetailsRequest")
+public class GetAllStudentDetailsRequest {
 
-    @XmlElement(name = "StudentDetails", required = true)
-    protected StudentDetails studentDetails;
+    protected int id;
 
     /**
-     * Gets the value of the studentDetails property.
+     * Gets the value of the id property.
      * 
-     * @return
-     *     possible object is
-     *     {@link StudentDetails }
-     *     
      */
-    public StudentDetails getStudentDetails() {
-        return studentDetails;
+    public int getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the studentDetails property.
+     * Sets the value of the id property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link StudentDetails }
-     *     
      */
-    public void setStudentDetails(StudentDetails value) {
-        this.studentDetails = value;
+    public void setId(int value) {
+        this.id = value;
     }
 
 }
