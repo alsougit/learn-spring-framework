@@ -9,6 +9,7 @@ import com.turki.spring.learnspringframework.Model.Course;
 
 @Repository
 public class CourseJdbcRepository {
+    // This is how to use Spring JDBC not JDBC ( Spring JDBC depends on JdbcTemplate)
     @Autowired
     private JdbcTemplate springJdbcTemplate;
 
