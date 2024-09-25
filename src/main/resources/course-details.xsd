@@ -1,5 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mySchool/courses"
-xmlns:tns="http://mySchool/courses"
+    xmlns:tns="http://mySchool/courses"
     elementFormDefault="qualified">
     <xs:element name="GetCourseDetailsRequest">
         <xs:complexType>
@@ -18,10 +18,28 @@ xmlns:tns="http://mySchool/courses"
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="AddCourseDetailsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CourseDetails" type="tns:CourseDetails"
+                    xmlns="http://mySchool/courses" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddCourseDetailsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Status" type="tns:Status" xmlns="http://mySchool/courses" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="DeleteCourseDetailsRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="id" type="xs:int" />
+                <xs:element name="id" type="xs:int" minOccurs="0"/>
+                <xs:element name="name" type="xs:string" minOccurs="0"/> 
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -35,26 +53,27 @@ xmlns:tns="http://mySchool/courses"
         </xs:complexType>
     </xs:element>
 
-    <xs:simpleType name="Status">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="SUCCESS"/>
-            <xs:enumeration value="FAILURE"/>
-        </xs:restriction>
-    </xs:simpleType>
 
-    <xs:element name="GetAllCourseDetailsRequest">
+    <xs:element name="GetAllCoursesDetailsRequest">
         <xs:complexType>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="GetAllCourseDetailsResponse">
+    <xs:element name="GetAllCoursesDetailsResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="CourseDetails" type="tns:CourseDetails"
-                    xmlns="http://mySchool/courses"  maxOccurs="unbounded"/>
+                    xmlns="http://mySchool/courses" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:simpleType name="Status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS" />
+            <xs:enumeration value="FAILURE" />
+        </xs:restriction>
+    </xs:simpleType>
     <!-- 
         The idea of seperating this parent elemnt as complex element is to be used in different parent
     elements for instance GetAllCourseDetailsResponse if in future used, always recomended to handle

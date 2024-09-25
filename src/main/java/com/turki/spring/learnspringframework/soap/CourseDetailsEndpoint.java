@@ -9,13 +9,16 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.turki.spring.learnspringframework.Model.Course;
-import com.turki.spring.learnspringframework.Service.CourseDetailsService;
-import com.turki.spring.learnspringframework.Service.CourseDetailsService.StatusEnum;
+import com.turki.spring.learnspringframework.Service.CourseService;
+import com.turki.spring.learnspringframework.Service.CourseService.StatusEnum;
+
+import myschool.courses.AddCourseDetailsRequest;
+import myschool.courses.AddCourseDetailsResponse;
 import myschool.courses.CourseDetails;
 import myschool.courses.DeleteCourseDetailsRequest;
 import myschool.courses.DeleteCourseDetailsResponse;
-import myschool.courses.GetAllCourseDetailsRequest;
-import myschool.courses.GetAllCourseDetailsResponse;
+import myschool.courses.GetAllCoursesDetailsRequest;
+import myschool.courses.GetAllCoursesDetailsResponse;
 import myschool.courses.GetCourseDetailsRequest;
 import myschool.courses.GetCourseDetailsResponse;
 import myschool.courses.Status;
@@ -24,61 +27,76 @@ import myschool.courses.Status;
 public class CourseDetailsEndpoint {
 
     @Autowired
-    CourseDetailsService service;
+    CourseService service;
 
     // input - GetCourseDetailsRequest
     // output - GetCourseDetailsResponse
     // namespace - http://mySchool/courses
     // service - GetCourseDetailsRequest
     private static final String NAMESPACE_URI = "http://mySchool/courses";
+    @Autowired
+    private CourseService courseService;
 
     // create the method process xml request and response
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetCourseDetailsRequest")
     @ResponsePayload
-    public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
-        Course course = service.findById(request.getId());
-       
-        return mapCourseDetails(course);
+    public GetCourseDetailsResponse getCourseDetails(@RequestPayload GetCourseDetailsRequest request) {
+
+        Course course = courseService.getCourse(request.getId());
+        CourseDetails courseDetails = mapCourseDetails(course);
+        GetCourseDetailsResponse response = new GetCourseDetailsResponse();
+        response.setCourseDetails(courseDetails);
+
+        return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllCourseDetailsRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetAllCoursesDetailsRequest")
     @ResponsePayload
-    public GetAllCourseDetailsResponse processAllCourseDetailsRequest(
-            @RequestPayload GetAllCourseDetailsRequest request) {
-        List<Course> courses = service.findAll();
-        return mapAllCourseDetails(courses);
+    public GetAllCoursesDetailsResponse getAllCoursesDetails(
+            @RequestPayload GetAllCoursesDetailsRequest request) {
+        List<Course> courses = courseService.getAllCourses();
+
+        GetAllCoursesDetailsResponse response = new GetAllCoursesDetailsResponse();
+        for(Course course:courses){
+            CourseDetails details = mapCourseDetails(course);
+            response.getCourseDetails().add(details);
+        }
+        
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "AddCourseDetailsRequest")
+    @ResponsePayload
+    public AddCourseDetailsResponse addCourseDetails(@RequestPayload AddCourseDetailsRequest request) {
+        CourseDetails courseDetails = request.getCourseDetails();
+
+        Status status = mapStatus(addCourseDetails(courseDetails));
+        AddCourseDetailsResponse response = new AddCourseDetailsResponse();
+        response.setStatus(status);
+
+        return response;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "DeleteCourseDetailsRequest")
     @ResponsePayload
     public DeleteCourseDetailsResponse deleteCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request) {
-        StatusEnum status = service.deleteById(request.getId());
+
         DeleteCourseDetailsResponse deleteResponse = new DeleteCourseDetailsResponse();
-        deleteResponse.setStatus(mapStatus(status));
+
+        if(request.getId() != null){
+            StatusEnum statusEnum = courseService.deleteCourse(request.getId());
+            deleteResponse.setStatus(mapStatus(statusEnum));
+        }else if(!request.getName().equals(null)){
+            StatusEnum statusEnum = courseService.deleteCourse(request.getName());
+            deleteResponse.setStatus(mapStatus(statusEnum));
+        }else{
+            deleteResponse.setStatus(Status.FAILURE);
+        }
         return deleteResponse;
 
     }
 
-    public GetAllCourseDetailsResponse mapAllCourseDetails(List<Course> courses) {
-        GetAllCourseDetailsResponse response = new GetAllCourseDetailsResponse();
-        for (Course course : courses) {
-            CourseDetails courseDetails = mapCourse(course);
-            response.getCourseDetails().add(courseDetails);
-        }
-        return response;
-
-    }
-
-    public GetCourseDetailsResponse mapCourseDetails(Course course) {
-        GetCourseDetailsResponse response = new GetCourseDetailsResponse();
-
-        CourseDetails courseDetails = mapCourse(course);
-
-        response.setCourseDetails(courseDetails);
-        return response;
-    }
-
-    public CourseDetails mapCourse(Course course) {
+    public CourseDetails mapCourseDetails(Course course) {
         CourseDetails courseDetails = new CourseDetails();
         courseDetails.setId(course.getId());
         courseDetails.setName(course.getName());
@@ -92,5 +110,15 @@ public class CourseDetailsEndpoint {
 
         return Status.FAILURE;
     }
+
+    public StatusEnum addCourseDetails(CourseDetails details) {
+        String courseName = details.getName();
+        String courseDesc = details.getDescription();
+        Course newCourse = new Course(courseName, courseDesc);
+
+        return courseService.addCourse(newCourse);
+    }
+
+    
 
 }

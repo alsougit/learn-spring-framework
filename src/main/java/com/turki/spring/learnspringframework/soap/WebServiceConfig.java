@@ -60,7 +60,7 @@ public class WebServiceConfig extends WsConfigurerAdapter{
     @Bean
     public Wss4jSecurityInterceptor securityInterceptor(){
         Wss4jSecurityInterceptor interceptor = new Wss4jSecurityInterceptor();
-        interceptor.setSecurementActions("UsernameToken");
+        interceptor.setSecurementActions(securementAction);
         interceptor.setSecurementUsername("user");
         interceptor.setSecurementPassword("password");
         interceptor.setValidationCallbackHandler(pwdCallBackHandler());

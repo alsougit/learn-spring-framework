@@ -1,14 +1,23 @@
 package com.turki.spring.learnspringframework.Model;
 
-public class Course {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
     // /courses
 
-    public Course(int id, String name, String description) {
-        this.id = id;
+    public Course() {
+    }
+
+    public Course(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -30,9 +39,9 @@ public class Course {
         return description;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    // public void setId(int id) {
+    //     this.id = id;
+    // }
 
     public void setName(String name) {
         this.name = name;

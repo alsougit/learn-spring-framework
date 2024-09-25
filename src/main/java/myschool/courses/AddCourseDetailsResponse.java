@@ -39,8 +39,8 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "status"
 })
-@XmlRootElement(name = "DeleteCourseDetailsResponse")
-public class DeleteCourseDetailsResponse {
+@XmlRootElement(name = "AddCourseDetailsResponse")
+public class AddCourseDetailsResponse {
 
     @XmlElement(name = "Status", required = true)
     @XmlSchemaType(name = "string")
